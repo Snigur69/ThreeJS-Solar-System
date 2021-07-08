@@ -7,6 +7,9 @@
   height: 40vmin;
   pointer-events: none;
 }
+.planet_label {
+  color: #FFF;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

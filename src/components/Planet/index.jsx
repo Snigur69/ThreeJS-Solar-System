@@ -1,7 +1,8 @@
 import React from 'react'
 import * as THREE from "three";
 import { useFrame, useLoader } from '@react-three/fiber'
-import moon from '../../assets/textures/moon.jpg'
+import { Html } from "@react-three/drei"
+import { Satellite } from '../Satellite';
 
 
 const Circle = ({ position, startRadius, endRadius, color }) => {
@@ -13,26 +14,7 @@ const Circle = ({ position, startRadius, endRadius, color }) => {
     )
 }
 
-const Moon = ({ planetX, planetZ }) => {
-    const texture = useLoader(THREE.TextureLoader, moon)
-    const ref = React.useRef()
-    let t = 0;
-    useFrame(() => {
-        t += 0.04;
-        ref.current.position.x = 2 * Math.cos(t) + planetX
-        ref.current.position.z = 2 * Math.sin(t) + planetZ
-        ref.current.rotation.y += 0.01
-    })
-    return (
-        <mesh ref={ref}>
-            <sphereBufferGeometry attach="geometry" args={[0.2, 32, 32]} />
-            <meshBasicMaterial attach="material" map={texture} />
-        </mesh>
-    )
-}
-
-
-export const Planet = ({ name, outerRadius, diameter, textureImage, rotationSpeed, positionSpeed }) => {
+export const Planet = ({ name, outerRadius, diameter, textureImage, rotationSpeed, positionSpeed, satellites = [] }) => {
     const texture = useLoader(THREE.TextureLoader, textureImage)
     const ref = React.useRef()
     let position = [0, 0, 0]
@@ -50,12 +32,19 @@ export const Planet = ({ name, outerRadius, diameter, textureImage, rotationSpee
 
     return (
         <group ref={ref} position={[outerRadius, 0, 0]} >
+            <Html distanceFactor={50} style={{ marginTop: `-${diameter * 30}px` }} center>
+                <div className="planet_label">
+                    {name}
+                </div>
+            </Html>
             <mesh >
                 <sphereBufferGeometry attach="geometry" args={[diameter, 32, 32]} />
                 <meshBasicMaterial attach="material" map={texture} />
             </mesh>
-            {name === 'Earth' && (
-                <Moon planetX={position[0]} planetZ={position[2]} />
+            {satellites.length > 0 && (
+                satellites.map((el, index) => (
+                    <Satellite key={index} name={el.name} diameter={el.diameter} outerRadius={el.outerRadius} rotationSpeed={el.rotationSpeed} image={el.image} planetX={position[0]} planetZ={position[2]} />
+                ))
             )}
             {name === 'Saturn' && (
                 <>

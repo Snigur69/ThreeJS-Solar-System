@@ -1,0 +1,11 @@
+.window {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 300px;
+    height: 300px;
+    border: 2px solid #FFF;
+    border-radius: 6px;
+    background-color: #000;
+    color: #FFF;
+}

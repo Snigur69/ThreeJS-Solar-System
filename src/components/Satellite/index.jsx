@@ -22,7 +22,7 @@ export const Satellite = ({ name, diameter, outerRadius, rotationSpeed, image, p
             </Html>
             <mesh>
                 <sphereBufferGeometry attach="geometry" args={[diameter, 32, 32]} />
-                <meshBasicMaterial attach="material" map={texture} />
+                <meshLambertMaterial attach="material" map={texture} />
             </mesh>
         </group>
 

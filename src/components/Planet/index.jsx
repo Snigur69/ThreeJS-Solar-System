@@ -14,7 +14,7 @@ const Circle = ({ position, startRadius, endRadius, color }) => {
     )
 }
 
-export const Planet = ({ name, outerRadius, diameter, textureImage, rotationSpeed, positionSpeed, satellites = [] }) => {
+export const Planet = ({ clickHandler, name, outerRadius, diameter, textureImage, rotationSpeed, positionSpeed, satellites = [] }) => {
     const texture = useLoader(THREE.TextureLoader, textureImage)
     const ref = React.useRef()
     let position = [0, 0, 0]
@@ -31,7 +31,7 @@ export const Planet = ({ name, outerRadius, diameter, textureImage, rotationSpee
 
 
     return (
-        <group ref={ref} position={[outerRadius, 0, 0]} >
+        <group onClick={() => clickHandler(name)} ref={ref} position={[outerRadius, 0, 0]} >
             <Html distanceFactor={50} style={{ marginTop: `-${diameter * 30}px` }} center>
                 <div className="planet_label">
                     {name}
@@ -39,7 +39,7 @@ export const Planet = ({ name, outerRadius, diameter, textureImage, rotationSpee
             </Html>
             <mesh >
                 <sphereBufferGeometry attach="geometry" args={[diameter, 32, 32]} />
-                <meshBasicMaterial attach="material" map={texture} />
+                <meshLambertMaterial attach="material" map={texture} />
             </mesh>
             {satellites.length > 0 && (
                 satellites.map((el, index) => (

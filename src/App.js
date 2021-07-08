@@ -1,8 +1,8 @@
 import React from 'react'
 import './App.css';
-import { Canvas, useFrame, useLoader } from '@react-three/fiber'
-import { OrbitControls, SpotLight, Stars } from '@react-three/drei'
-import { Physics, useBox, usePlane } from '@react-three/cannon'
+import { Canvas } from '@react-three/fiber'
+import { OrbitControls, Stars } from '@react-three/drei'
+import { Physics } from '@react-three/cannon'
 import sun from './assets/textures/sun_texture.jpg'
 import mercury from './assets/textures/mercury.png'
 import venus from './assets/textures/venus.jpg'
